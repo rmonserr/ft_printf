@@ -5,13 +5,15 @@
 #include "libft/libft/libft.h"
 #include <stdio.h>
 
+
 typedef struct	s_printf
 {
-	const char	format;
+	va_list		args;
+	char		*format;
 	size_t		len;
-	
 }				t_printf;
 
-void	exit_func(void);
+t_printf	*init(t_printf *data, char *format);
+void		exit_func(void);
 
 # endif

@@ -2,6 +2,6 @@
 
 void	exit_func(void)
 {
-	ft_putstr("wrong parametr\n");
+	ft_putstr("error\n");
 	exit(1);
 }
