@@ -1,7 +1,7 @@
 
 NAME = ft_printf
 
-SRCS = src/exit_func.c src/ft_printf.c src/initialization.c
+SRCS = src/exit_func.c src/ft_printf.c src/initialization.c src/find_specifier.c
 
 INCLUDES = -I includes -I.
 LIB = -L libft libft/libft/libft.a

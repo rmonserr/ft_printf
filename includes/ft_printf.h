@@ -10,10 +10,15 @@ typedef struct	s_printf
 {
 	va_list		args;
 	char		*format;
+	char		*string;
+	char		character;
+	char		*buffer;
+	int			integer;
 	size_t		len;
 }				t_printf;
 
 t_printf	*init(t_printf *data, char *format);
+void		specifier(t_printf *data);
 void		exit_func(void);
 
 # endif

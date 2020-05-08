@@ -4,9 +4,6 @@
 
 int		ft_printf(char *format, ...)
 {
-	char *str;
-	int a = 0;
-	int b = 0;
 	t_printf *data;
 
 	if (!(data = (t_printf *)malloc(sizeof(t_printf))))
@@ -15,11 +12,7 @@ int		ft_printf(char *format, ...)
 	{
 		data = init(data, format);
 		va_start(data->args, format);
-		str = va_arg(data->args, char*);
-		a = va_arg(data->args , int);
-		//b = va_arg(data->args, int);
-		printf("%d\n", a);
-		printf("%s\n", str);
+		specifier(data);
 		va_end(data->args);
 	}
 	return(0);
@@ -27,6 +20,7 @@ int		ft_printf(char *format, ...)
 
 int		main()
 {
-	ft_printf("%i", "Hello", 10);
+	printf( "%0*x", 8, 15 );
+	//ft_printf("%s", "-");
 	return (0);
 }
