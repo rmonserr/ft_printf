@@ -4,25 +4,35 @@ void	specifier(t_printf *data)
 {
 	int		counter = 0;
 
-	while(data->format[counter])
+	while (data->format[counter])
 	{
-		if(data->format[counter] == '%')
+		if (data->format[counter] == '%')
 		{
 			counter++;
-			if(data->format[counter] == 'i' || data->format[counter] == 'd')
+			if (data->format[counter] == 'i')
 			{
 				data->integer  = va_arg(data->args, int);
-				printf("%d\n", data->integer);
+				int_output(data->integer);
 			}
-			if(data->format[counter] == 'c')
+			if (data->format[counter] == 'c')
 			{
 				data->character = va_arg(data->args, int);
-				printf("%c\n", data->character);
+				character_output(data->character);
 			}
-			if(data->format[counter] == 's')
+			if (data->format[counter] == 's')
 			{
 				data->string = va_arg(data->args, char*);
-				printf("%s\n", data->string);
+				output(data->string);
+			}
+			if (data->format[counter] == 'f')
+			{
+				data->flt = va_arg(data->args, double);
+				printf("%f\n", data->flt);
+			}
+			if (data->format[counter] == 'd')
+			{
+				data->doub = va_arg(data->args, double);
+				printf("%f\n", data->doub);
 			}
 		}
 		counter++;

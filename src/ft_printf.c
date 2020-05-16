@@ -20,7 +20,7 @@ int		ft_printf(char *format, ...)
 
 int		main()
 {
-	printf( "%0*x", 8, 15 );
-	//ft_printf("%s", "-");
+	//printf( "%c\n", 1);
+	ft_printf("%c", '1');
 	return (0);
 }
