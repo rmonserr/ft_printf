@@ -1,7 +1,6 @@
-#include <stdio.h>
-//#include "ft_printf.h"
+#include "libft/includes/libft.h"
 
-int     main(void)
+int		main(void)
 {
-	printf("%%", 1);
+	ft_putstr("Hello world");
 }

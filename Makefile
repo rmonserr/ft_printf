@@ -13,10 +13,12 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME):
-	$(CC) -g $(SRCS) $(LIB) $(INCLUDES) -o $(NAME) -std=c11
+	@$(CC) -g $(SRCS) $(LIB) $(INCLUDES) -o $(NAME) -std=c11
+	@echo "Compilation of ft_printf:	\033[1;32mOK\033[m"
 
 fclean:
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "ft_printf:	\033[1;32mRemoving ft_printf\033[m"
 
 re: fclean all
 

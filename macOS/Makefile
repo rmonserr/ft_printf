@@ -1,4 +1,3 @@
-
 NAME = ft_printf
 
 SRCS = exit_func.c find_specifier.c ft_printf.c
