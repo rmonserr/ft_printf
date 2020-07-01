@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                   :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmonserr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/30 13:51:29 by rmonserr          #+#    #+#             */
-/*   Updated: 2020/06/30 13:51:35 by rmonserr         ###   ########.fr       */
+/*   Created: 2020/07/01 13:39:38 by rmonserr          #+#    #+#             */
+/*   Updated: 2020/07/01 13:39:39 by rmonserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-t_params	*init(t_params *data, char *format)
+void		read_flag(t_params *data, char *format)
 {
-	data->format = format;
-	data->precision = 0;
-	data->width = 0;
-	data->minus_sign = 0;
-	data->plus_sign = 0;
-	data->space = 0;
-	data->zero = 0;
-	data->hash = 0;
-	data->size = 0;
-	data->counter = 0;
-	return(data);
+	
+}
+
+void		parcer(t_params *data, char *format)
+{
+	if (format[0] == '%' && format[1] == '\0')
+		return (0);
+	while (format[data->counter])
+	{
+		if (format[data->counter] == '%')
+		{
+			data->counter++;
+			read_flag(data, format);
+		}
+		data->counter++;
+	}
 }

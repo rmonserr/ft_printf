@@ -3,23 +3,26 @@
 
 #include <stdarg.h>
 #include "../libft/includes/libft.h"
-#include <stdio.h>
 #include <stdlib.h>
 
-typedef struct	s_printf
+typedef struct	s_params
 {
 	va_list		args;
 	char		*format;
-	char		*string;
-	char		character;
-	char		*buffer;
-	int			integer;
-	double		doub;
-	float		flt;
-	size_t		len;
-}				t_printf;
+	long int	precision;
+	long int	width;
+	int			minus_sign;
+	int			plus_sign;
+	int			space;
+	int			zero;
+	int			hash;
+	size_t		size;
+	int			counter;
+}				t_params;
 
-t_printf	*init(t_printf *data, char *format);
+t_params	*init(t_params *data, char *format);
+void		parcer(t_params *data, char *format);
+void		read_flag(t_params *data, char *format)
 void		specifier(t_printf *data);
 void		exit_func(void);
 void		int_output(int num);
