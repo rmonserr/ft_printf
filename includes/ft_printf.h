@@ -18,15 +18,12 @@ typedef struct	s_params
 	int			hash;
 	size_t		size;
 	int			counter;
+	char		*specifier_mask;
+
 }				t_params;
 
 t_params	*init(t_params *data, char *format);
 void		parcer(t_params *data, char *format);
-void		read_flag(t_params *data, char *format)
-void		specifier(t_printf *data);
-void		exit_func(void);
-void		int_output(int num);
-void		output(char *str);
-void		character_output(char c);
+void		read_flag(t_params *data, char *format);
 
 # endif

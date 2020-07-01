@@ -24,5 +24,6 @@ t_params	*init(t_params *data, char *format)
 	data->hash = 0;
 	data->size = 0;
 	data->counter = 0;
+	data->specifier_mask = "sSeEpdDioOuUxXfgGcbC%";
 	return(data);
 }

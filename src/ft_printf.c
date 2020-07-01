@@ -35,6 +35,6 @@ int		ft_printf(char *format, ...)
 int		main(void)
 {
 	//printf( "%c\n", 1);
-	ft_printf("%c", '1');
+	ft_printf("% c");
 	return (0);
 }

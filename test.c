@@ -121,7 +121,7 @@
 
 //%[flags] [Ширина] [. точность] [Размер] тип. Обязательный символ спецефикации - тип (type).
 
-//s, S, e, E, p, d, D, i, o, O, u, U, x, X, f, g, G, c & C
+//s, S, e, E, p, d, D, i, o, O, u, U, x, X, f, g, G, c, b & C
 
 int		main(void)
 {
@@ -200,5 +200,6 @@ int		main(void)
 	printf("%d\n", 10);
 	printf("%d\n", 10);
 	printf("%%\n");
+	printf("%.5f\n", 10.02);
 
 }

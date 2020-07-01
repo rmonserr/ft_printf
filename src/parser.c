@@ -14,13 +14,27 @@
 
 void		read_flag(t_params *data, char *format)
 {
-	
+	while ((ft_strchr(data->specifier_mask, format[data->counter]) == NULL))
+	{
+		if (format[data->counter] == '#')
+			data->hash = 1;
+		else if (format[data->counter] == '0')
+			data->zero = 1;
+		else if (format[data->counter] == '+')
+			data->plus_sign = 1;
+		else if (format[data->counter] == '-')
+			data->minus_sign = 1;
+		else if (format[data->counter] == ' ')
+			data->space = 1;
+		data->counter++;
+		
+	}
 }
 
 void		parcer(t_params *data, char *format)
 {
 	if (format[0] == '%' && format[1] == '\0')
-		return (0);
+		return ;
 	while (format[data->counter])
 	{
 		if (format[data->counter] == '%')
