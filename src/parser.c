@@ -12,9 +12,73 @@
 
 #include "../includes/ft_printf.h"
 
+void		read_precision(t_params *data, char *format)
+{
+
+	// char	*tmp;
+	// int		tmp_counter;
+	// int		tmp_counter1;
+
+	// if (format[data->counter] == '.')
+	// {
+	// 	tmp_counter = 0;
+	// 	tmp_counter1 = data->counter;
+	// 	while((format[data->counter] >= '0' && format[data->counter] <= '9') ||
+	// 		(format[data->counter == '.']))
+	// 	{
+	// 		if (format[data->counter] == '.')
+	// 		{
+	// 			data->counter++;
+	// 			continue ;
+	// 		}
+	// 		tmp_counter++;
+	// 		data->counter++;
+	// 	}
+	// 	tmp = ft_strnew(tmp_counter);
+	// 	tmp_counter1 += tmp_counter;
+	// 	data->counter -= tmp_counter;
+	// 	tmp_counter = 0;
+	// 	while (data->counter != tmp_counter1)
+	// 	{
+	// 		tmp[tmp_counter] = format[data->counter];
+	// 		tmp_counter++;
+	// 		data->counter++;
+	// 	}
+	// 	data->precision = ft_atoi(tmp);
+	// 	free(tmp);
+	// }
+}
+
+void		read_width(t_params *data, char *format) // плохая идея, поскольку data->total и data->counter могут отличаться
+{
+	char	*tmp;
+	int		tmp_counter;
+	int		tmp_counter1;
+
+	tmp_counter = 0;
+	tmp_counter1 = data->counter;
+	while(format[data->counter] >= '0' && format[data->counter] <= '9')
+	{
+		tmp_counter++;
+		data->counter++;
+	}
+	tmp = ft_strnew(tmp_counter);
+	tmp_counter1 += tmp_counter;
+	data->counter -= tmp_counter;
+	tmp_counter = 0;
+	while (data->counter != tmp_counter1)
+	{
+		tmp[tmp_counter] = format[data->counter];
+		tmp_counter++;
+		data->counter++;
+	}
+	data->width = ft_atoi(tmp);
+	free(tmp);
+}
+
 void		read_flag(t_params *data, char *format)
 {
-	while ((ft_strchr(data->specifier_mask, format[data->counter]) == NULL))
+	while ((ft_strchr(data->flag_mask, format[data->counter]) != NULL))
 	{
 		if (format[data->counter] == '#')
 			data->hash = 1;
@@ -27,21 +91,27 @@ void		read_flag(t_params *data, char *format)
 		else if (format[data->counter] == ' ')
 			data->space = 1;
 		data->counter++;
-		
 	}
 }
 
 void		parcer(t_params *data, char *format)
 {
-	if (format[0] == '%' && format[1] == '\0')
-		return ;
+	read_flag(data, format);
+	read_width(data, format);
+	read_precision(data, format);
+}
+
+void		read_specifier(t_params *data, char *format)
+{
 	while (format[data->counter])
 	{
 		if (format[data->counter] == '%')
 		{
 			data->counter++;
-			read_flag(data, format);
+			parcer(data, format);
 		}
 		data->counter++;
+		if (format[data->counter] != '%')
+			ft_putchar(format[data->counter]);
 	}
 }

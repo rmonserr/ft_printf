@@ -24,17 +24,20 @@ int		ft_printf(char *format, ...)
 			return (-1);
 		data = init(data, format);
 		va_start(data->args, format);
-		parcer(data, format);
+		if (format[0] == '%' && format[1] == '\0')
+			return (0);
+		read_specifier(data, format);
 		va_end(data->args);
 	}
 	else
 		return (-1);
-	return (0);
+	return (data->total);
 }
 
 int		main(void)
 {
-	//printf( "%c\n", 1);
-	ft_printf("% c");
+	// int	x =
+	ft_printf("----%010.5d\n");
+	// printf("%d\n", x);
 	return (0);
 }

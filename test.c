@@ -200,6 +200,13 @@ int		main(void)
 	printf("%d\n", 10);
 	printf("%d\n", 10);
 	printf("%%\n");
-	printf("%.5f\n", 10.02);
+	printf("%1%\n");
+	printf("%2%\n");
+	printf("%3%\n");
+	printf("%1d\n", 1000);
+	printf("------------%6d----------\n", 1000);
+
+	int	x = printf("%%\n");
+	printf ("%d\n", x);
 
 }
