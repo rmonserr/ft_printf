@@ -30,5 +30,6 @@ void		read_specifier(t_params *data, char *format);
 void		read_flag(t_params *data, char *format);
 void		read_width(t_params *data, char *format);
 void		read_precision(t_params *data, char *format);
+void		read_size(t_params *data, char *format);
 
 # endif

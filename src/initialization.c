@@ -23,6 +23,7 @@ t_params	*init(t_params *data, char *format)
 	data->zero = 0;
 	data->hash = 0;
 	data->size = 0;
+	data->type = '\0';
 	data->counter = 0;
 	data->specifier_mask = "sSpdDioOuUxXfcC";
 	data->flag_mask = "+- 0#";

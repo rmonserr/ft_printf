@@ -14,39 +14,30 @@
 
 void		read_precision(t_params *data, char *format)
 {
+	int		tmp_counter;
+	int		tmp_counter1;
+	char	*tmp;
 
-	// char	*tmp;
-	// int		tmp_counter;
-	// int		tmp_counter1;
-
-	// if (format[data->counter] == '.')
-	// {
-	// 	tmp_counter = 0;
-	// 	tmp_counter1 = data->counter;
-	// 	while((format[data->counter] >= '0' && format[data->counter] <= '9') ||
-	// 		(format[data->counter == '.']))
-	// 	{
-	// 		if (format[data->counter] == '.')
-	// 		{
-	// 			data->counter++;
-	// 			continue ;
-	// 		}
-	// 		tmp_counter++;
-	// 		data->counter++;
-	// 	}
-	// 	tmp = ft_strnew(tmp_counter);
-	// 	tmp_counter1 += tmp_counter;
-	// 	data->counter -= tmp_counter;
-	// 	tmp_counter = 0;
-	// 	while (data->counter != tmp_counter1)
-	// 	{
-	// 		tmp[tmp_counter] = format[data->counter];
-	// 		tmp_counter++;
-	// 		data->counter++;
-	// 	}
-	// 	data->precision = ft_atoi(tmp);
-	// 	free(tmp);
-	// }
+	if ((format[data->counter] == '.') && (format[data->counter + 1] >= '0'
+		|| format[data->counter + 1] <= '9' ))
+	{
+		data->counter++;
+		tmp_counter = 0;
+		tmp_counter1 = data->counter;
+		while(format[data->counter++] >= '0' && format[data->counter++] <= '9')
+			tmp_counter++;
+		tmp = ft_strnew(tmp_counter);
+		tmp_counter1 += tmp_counter;
+		data->counter -= tmp_counter;
+		tmp_counter = 0;
+		while (data->counter != tmp_counter1)
+			tmp[tmp_counter++] = format[data->counter++];
+			tmp_counter++;
+			data->counter++;
+		data->counter++;
+		data->precision = ft_atoi(tmp);
+		free(tmp);
+	}
 }
 
 void		read_width(t_params *data, char *format) // плохая идея, поскольку data->total и data->counter могут отличаться
@@ -59,19 +50,15 @@ void		read_width(t_params *data, char *format) // плохая идея, пос�
 	tmp_counter1 = data->counter;
 	while(format[data->counter] >= '0' && format[data->counter] <= '9')
 	{
-		tmp_counter++;
 		data->counter++;
+		tmp_counter++;
 	}
 	tmp = ft_strnew(tmp_counter);
 	tmp_counter1 += tmp_counter;
 	data->counter -= tmp_counter;
 	tmp_counter = 0;
 	while (data->counter != tmp_counter1)
-	{
-		tmp[tmp_counter] = format[data->counter];
-		tmp_counter++;
-		data->counter++;
-	}
+		tmp[tmp_counter++] = format[data->counter++];
 	data->width = ft_atoi(tmp);
 	free(tmp);
 }
@@ -82,13 +69,13 @@ void		read_flag(t_params *data, char *format)
 	{
 		if (format[data->counter] == '#')
 			data->hash = 1;
-		else if (format[data->counter] == '0')
+		if (format[data->counter] == '0')
 			data->zero = 1;
-		else if (format[data->counter] == '+')
+		if (format[data->counter] == '+')
 			data->plus_sign = 1;
-		else if (format[data->counter] == '-')
+		if (format[data->counter] == '-')
 			data->minus_sign = 1;
-		else if (format[data->counter] == ' ')
+		if (format[data->counter] == ' ')
 			data->space = 1;
 		data->counter++;
 	}
@@ -99,6 +86,7 @@ void		parcer(t_params *data, char *format)
 	read_flag(data, format);
 	read_width(data, format);
 	read_precision(data, format);
+	data->type = format[data->counter];
 }
 
 void		read_specifier(t_params *data, char *format)
@@ -110,8 +98,8 @@ void		read_specifier(t_params *data, char *format)
 			data->counter++;
 			parcer(data, format);
 		}
-		data->counter++;
-		if (format[data->counter] != '%')
+		else
 			ft_putchar(format[data->counter]);
+		data->counter++;
 	}
 }

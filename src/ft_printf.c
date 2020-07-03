@@ -37,7 +37,7 @@ int		ft_printf(char *format, ...)
 int		main(void)
 {
 	// int	x =
-	ft_printf("----%010.5d\n");
+	ft_printf("%-10.21lld\n");
 	// printf("%d\n", x);
 	return (0);
 }
