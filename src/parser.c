@@ -40,7 +40,7 @@ void		read_precision(t_params *data, char *format)
 	}
 }
 
-void		read_width(t_params *data, char *format) // плохая идея, поскольку data->total и data->counter могут отличаться
+void		read_width(t_params *data, char *format)
 {
 	char	*tmp;
 	int		tmp_counter;
