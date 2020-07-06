@@ -13,6 +13,7 @@
 NAME = ft_printf
 
 SRCS = src/ft_printf.c src/initialization.c src/parser.c \
+src/parser_pt_2.c src/print.c src/print_operations.c src/print_with_flags.c
 
 INCLUDES = -I includes -I.
 LIB = -L libft -lft

@@ -216,5 +216,9 @@ int		main(void)
 	printf("%..........................d\n", 10);
 	printf("%-------- -------d\n", 10);
 
-	printf("%-+#0 6lf", 10.0);
+	printf("%-+#0 6lf\n\n\n", 10.0);
+	printf("Hello, my name is %s\n", "Tommy");
+
+	printf("%-d\n", 1);
+	printf("%d -- %s", "Hello", 10);
 }

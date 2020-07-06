@@ -37,7 +37,7 @@ int		ft_printf(char *format, ...)
 int		main(void)
 {
 	// int	x =
-	ft_printf("%-10.21lld\n");
-	// printf("%d\n", x);
+	ft_printf("Это тест %-5d - ft_printf\n", 0);
+	printf("Это тест %-5d - printf\n", 0);
 	return (0);
 }
