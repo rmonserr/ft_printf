@@ -51,6 +51,6 @@ void		read_size(t_params *data, char *format)
 
 void		type_parsing(t_params *data, char *format)
 {
-	if (data->type == 'd')
+	if (data->type == 'd' || data->type == 'i')
 		print_integer(data);
 }
