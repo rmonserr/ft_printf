@@ -25,6 +25,7 @@ typedef struct	s_params
 	char		*output_str;
 }				t_params;
 
+int			ft_printf(char *format, ...);
 t_params	*init(t_params *data, char *format);
 void		clean_struct(t_params *data);
 void		parcer(t_params *data, char *format);
@@ -34,8 +35,9 @@ void		read_width(t_params *data, char *format);
 void		read_precision(t_params *data, char *format);
 void		read_size(t_params *data, char *format);
 void		sort_flags(t_params *data);
-void		type_parsing(t_params *data, char *format);
+void		type_parsing(t_params *data);
 void		print_integer(t_params *data);
 
+void		print_with_width(t_params *data);
 
 # endif

@@ -12,10 +12,22 @@
 
 #include "ft_printf.h"
 
+void		print_with_width(t_params *data)
+{
+	int		counter;
+
+	counter = 0;
+	while (counter < data->width - (int)ft_strlen(data->output_str))
+	{
+		ft_putchar(' ');
+		counter++;
+	}
+}
+
 void		print_integer(t_params *data)
 {
 	// здесь будет проверка на size - меняем size и переходим далее
 	data->output_str = ft_itoa(va_arg(data->args, int));
-		if (data->width != 0)
-			print_with_width(data)
+	print_with_width(data);
+	ft_putstr(data->output_str);
 }

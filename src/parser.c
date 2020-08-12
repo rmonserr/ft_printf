@@ -99,7 +99,7 @@ void		read_specifier(t_params *data, char *format)
 		{
 			data->counter++;
 			parcer(data, format);
-			type_parsing(data, format);
+			type_parsing(data);
 			clean_struct(data);
 		}
 		else

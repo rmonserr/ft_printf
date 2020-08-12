@@ -12,7 +12,6 @@
 
 #include "../includes/ft_printf.h"
 #include <unistd.h>
-#include <stdio.h>
 
 int		ft_printf(char *format, ...)
 {
@@ -32,12 +31,4 @@ int		ft_printf(char *format, ...)
 	else
 		return (-1);
 	return (data->total);
-}
-
-int		main(void)
-{
-	// int	x =
-	ft_printf("Это тест %-5d - ft_printf\n", 0);
-	printf("Это тест %-5d - printf\n", 0);
-	return (0);
 }

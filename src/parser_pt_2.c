@@ -49,7 +49,7 @@ void		read_size(t_params *data, char *format)
 		data->size = 1;
 }
 
-void		type_parsing(t_params *data, char *format)
+void		type_parsing(t_params *data)
 {
 	if (data->type == 'd' || data->type == 'i')
 		print_integer(data);

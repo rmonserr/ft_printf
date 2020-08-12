@@ -10,26 +10,45 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_printf
+NAME = libftprintf.a
 
-SRCS = src/ft_printf.c src/initialization.c src/parser.c \
-src/parser_pt_2.c src/print.c src/print_operations.c src/print_with_flags.c
+SRC_PATH = src
+SRCS = ft_printf.c initialization.c parser.c parser_pt_2.c print.c
 
-INCLUDES = -I includes -I.
-LIB = -L libft -lft
+OBJ_PATH = obj
+OBJS = $(SRCS:.c=.o)
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 
+INCLUDES = -I includes
+SRC = $(addprefix $(SRC_PATH)/,$(SRCS))
+OBJ = $(addprefix $(OBJ_PATH)/,$(OBJS))
+
+FT = ./libft/
+
 all: $(NAME)
 
-$(NAME):
-	@$(CC) -g $(SRCS) $(LIB) $(INCLUDES) -o $(NAME)
-	@echo "Compilation of ft_printf:	\033[1;32mOK\033[m"
+$(NAME): $(OBJ)
+	@make -C $(FT)
+	@ar rcs $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo "Compilation of libftprintf:	\033[1;32mOK\033[m"
 
-fclean:
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@$(CC) $(FLAGS) -c $< $(INCLUDES) -o $@
+
+clean:
+	@make clean -C $(FT)
+	@rm -f $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	@echo "libftprintf: \033[1;32mRemoving Objs\033[m"
+
+fclean: clean
+	@make fclean -C $(FT)
 	@rm -f $(NAME)
-	@echo "ft_printf:	\033[1;32mRemoving ft_printf\033[m"
+	@echo "Libftprintf: \033[1;32mRemoving Libftprintf\033[m"
 
 re: fclean all
 
