@@ -14,7 +14,7 @@
 
 void		clean_struct(t_params *data)
 {
-	data->precision = 0;
+	data->precision = -5;
 	data->width = 0;
 	data->minus_sign = 0;
 	data->plus_sign = 0;
@@ -23,12 +23,16 @@ void		clean_struct(t_params *data)
 	data->hash = 0;
 	data->size = 0;
 	data->type = '\0';
+	data->negative = 0;
+	data->printed = 0;
+	data->trigger = 0;
+	data->format = '\0';
 }
 
 t_params	*init(t_params *data, char *format)
 {
 	data->format = format;
-	data->precision = 0;
+	data->precision = -5;
 	data->width = 0;
 	data->minus_sign = 0;
 	data->plus_sign = 0;
@@ -36,11 +40,14 @@ t_params	*init(t_params *data, char *format)
 	data->zero = 0;
 	data->hash = 0;
 	data->size = 0;
+	data->negative = 0;
 	data->type = '\0';
+	data->printed = 0;
+	data->trigger = 0;
 	data->counter = 0;
 	data->specifier_mask = "sSpdDioOuUxXfcC";
 	data->flag_mask = "+- 0#";
 	data->output_str = "\0";
 	data->total = 0;
-	return(data);
+	return (data);
 }

@@ -15,20 +15,19 @@
 void		sort_flags(t_params *data)
 {
 	if (data->minus_sign == 1 && data->zero == 1)
-		data->minus_sign = 0;
+		data->zero = 0;
 	if (data->plus_sign == 1 && data->space == 1)
 		data->space = 0;
 }
 
 void		read_size(t_params *data, char *format)
 {
-	size_t 		h_size;
-	size_t 		l_size;
+	size_t		h_size;
+	size_t		l_size;
 
 	h_size = 0;
 	l_size = 0;
-
-	while(format[data->counter] == 'h' || format[data->counter] == 'l' ||
+	while (format[data->counter] == 'h' || format[data->counter] == 'l' ||
 		format[data->counter] == 'L')
 	{
 		if (format[data->counter] == 'h')
@@ -53,4 +52,8 @@ void		type_parsing(t_params *data)
 {
 	if (data->type == 'd' || data->type == 'i')
 		print_integer(data);
+	if (data->type == 'c')
+		print_char(data);
+	if (data->type == '%')
+		ft_putchar('%'); // сделать вывод с учетом ширины, точности и т.д.
 }

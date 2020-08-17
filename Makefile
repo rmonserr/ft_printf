@@ -12,8 +12,10 @@
 
 NAME = libftprintf.a
 
-SRC_PATH = src
-SRCS = ft_printf.c initialization.c parser.c parser_pt_2.c print.c
+SRC_PATH = src/
+SRCS = ft_printf.c initialization.c parser.c parser_pt_2.c print_int.c \
+print_int_pt_2.c print_char.c ft_itoa.c ft_memset.c ft_putchar.c ft_strchr.c \
+ft_strnew.c ft_atoi.c ft_strlen.c ft_putstr.c ft_isspace.c
 
 OBJ_PATH = obj
 OBJS = $(SRCS:.c=.o)
@@ -38,6 +40,7 @@ $(NAME): $(OBJ)
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	@$(CC) $(FLAGS) -c $< $(INCLUDES) -o $@
+	@# -l $(FT)
 
 clean:
 	@make clean -C $(FT)

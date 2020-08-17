@@ -19,12 +19,12 @@ void		read_precision(t_params *data, char *format)
 	char	*tmp;
 
 	if ((format[data->counter] == '.') && (format[data->counter + 1] >= '0'
-		|| format[data->counter + 1] <= '9' ))
+		|| format[data->counter + 1] <= '9'))
 	{
 		data->counter++;
 		tmp_counter = 0;
 		tmp_counter1 = data->counter;
-		while(format[data->counter] >= '0' && format[data->counter] <= '9')
+		while (format[data->counter] >= '0' && format[data->counter] <= '9')
 		{
 			data->counter++;
 			tmp_counter++;
@@ -48,7 +48,7 @@ void		read_width(t_params *data, char *format)
 
 	tmp_counter = 0;
 	tmp_counter1 = data->counter;
-	while(format[data->counter] >= '0' && format[data->counter] <= '9')
+	while (format[data->counter] >= '0' && format[data->counter] <= '9')
 	{
 		data->counter++;
 		tmp_counter++;

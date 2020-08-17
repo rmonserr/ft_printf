@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmonserr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/02 15:12:55 by rmonserr          #+#    #+#             */
-/*   Updated: 2020/07/02 15:12:56 by rmonserr         ###   ########.fr       */
+/*   Created: 2019/09/19 15:58:37 by rmonserr          #+#    #+#             */
+/*   Updated: 2019/09/19 15:58:38 by rmonserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdlib.h>
 
-void		print_with_width(t_params *data)
+char			*ft_itoa(int n)
 {
-	int		counter;
+	int					size;
+	long long int		res;
+	char				*str;
+	int					flag;
 
-	counter = 0;
-	while (counter < data->width - (int)ft_strlen(data->output_str))
+	flag = (n < 0) ? (-1) : 1;
+	size = (n < 0) ? 3 : 2;
+	res = n;
+	while (res /= 10)
+		size++;
+	if ((str = (char *)malloc(sizeof(char) * size)) == NULL)
+		return (NULL);
+	str[--size] = '\0';
+	while (size > 0)
 	{
-		ft_putchar(' ');
-		counter++;
+		str[--size] = n % 10 * flag + '0';
+		n /= 10;
 	}
-}
-
-void		print_integer(t_params *data)
-{
-	// здесь будет проверка на size - меняем size и переходим далее
-	data->output_str = ft_itoa(va_arg(data->args, int));
-	print_with_width(data);
-	ft_putstr(data->output_str);
+	if (flag < 0)
+		str[0] = '-';
+	return (str);
 }
