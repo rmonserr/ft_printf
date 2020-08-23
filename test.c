@@ -5,8 +5,8 @@ int		main(void)
 {
 	int	x = 430;
 
-	printf ("%#i\n", 10);
-	//ft_printf ("%#i\n", 10);
+	printf ("%.s\n", "Hello");
+	ft_printf ("%.s\n", "Hello");
 }
 
 //   00034

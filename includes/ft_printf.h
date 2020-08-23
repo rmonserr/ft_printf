@@ -52,6 +52,8 @@ void		function_parsing(t_params *data);
 
 //char
 void		print_char(t_params *data);
+void		print_char_with_width(t_params *data);
+void		print_string(t_params *data);
 
 char		*ft_itoa(int n);
 void		ft_putchar(char c);

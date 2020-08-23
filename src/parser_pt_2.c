@@ -52,8 +52,10 @@ void		type_parsing(t_params *data)
 {
 	if (data->type == 'd' || data->type == 'i')
 		print_integer(data);
-	if (data->type == 'c')
+	if (data->type == 'c' || data->type == 'C')
 		print_char(data);
+	if (data->type == 's' || data->type == 'S')
+		print_string(data);
 	if (data->type == '%')
 		ft_putchar('%'); // сделать вывод с учетом ширины, точности и т.д.
 }
