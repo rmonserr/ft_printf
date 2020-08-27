@@ -11,68 +11,85 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-void		output(char *str,int counter)
+char	*check_null(t_params *data, char *str)
 {
-	int		tmp;
+	char *new;
 
-	tmp = 0;
-	while (counter != tmp)
-		ft_putchar(str[tmp++]);
+	if (data->precision > -5 && data->precision < 6)
+	{
+		new = ft_strnew(0);
+		return (new);
+	}
+	return (str);
 }
 
-void		print_string_with_prec(t_params *data, char *str)
+char	*print_string_3(t_params *data, int len, char *str)
 {
-	int		counter;
+	char	*tmp;
+	char	*new;
+	int		count;
 
-	if (data->precision > 0 && data->precision < (int)ft_strlen(str))
+	count = 0;
+	if (data->width > (long int)len)
 	{
-		counter = data->precision;
-		data->printed = 0;
-		output(str, counter);
+		tmp = ft_strnew(data->width - len);
+		while (count < (int)(data->width - len))
+		{
+			if (data->zero == 0)
+				tmp[count] = ' ';
+			else
+				tmp[count] = '0';
+			count++;
+		}
+		if (data->minus_sign == 1)
+			new = ft_strjoin(str, tmp);
+		else
+			new = ft_strjoin(tmp, str);
+		ft_strdel(&tmp);
+		ft_strdel(&str);
+		return (new);
 	}
-	if (data->precision == 0)
-		data->printed = 0;
+	return (str);
 }
 
-void		print_string_with_width(t_params *data, char *str)
+char	*print_string_2(t_params *data, long int len, char *str)
 {
-	int		counter;
+	char 	*new;
+	int		count;
 
-	counter = data->width - (int)ft_strlen(str);
-	if (counter < 0)
-		return ;
-	while (counter-- > 0)
-		ft_putchar(' ');
+	count = 0;
+	if (data->precision != -5 && data->precision < len)
+	{
+		new = ft_strnew((size_t)data->precision);
+		while (count < (int)data->precision)
+		{
+			new[count] = str[count];
+			count++;
+		}
+		ft_strdel(&str);
+		return (new);
+	}
+	return (str);
 }
 
-void		print_string(t_params *data)
+void	print_string(t_params *data)
 {
-	char *str = va_arg(data->args, char *);
-	if (str == NULL)
-	{
-		ft_putstr("(null)");
-		return ;
-	}
-	data->printed = 1;
-	if (data->precision >= 0)
-		print_string_with_prec(data, str);
-	if (data->printed && !data->width)
-	{
-		ft_putstr(str);
-		data->printed = 0;
-	}
-	if (data->printed && data->width != 0 && data->minus_sign)
-	{
-		ft_putstr(str);
-		data->printed = 0;
-		print_string_with_width(data, str);
-	}
-	else if (data->printed && data->width && !data->minus_sign)
-	{
-		print_string_with_width(data, str);
-		ft_putstr(str);
-		//data->printed = 0;
-	}
-}
+	int		len;
+	char	*str;
 
+	str = va_arg(data->args, char *);
+	if (!str)
+	{
+		str = ft_strdup("(null)");
+		str = check_null(data, str);
+	}
+	else
+		str = ft_strdup(str);
+	len = (int)ft_strlen(str);
+	str = print_string_2(data, (long int)len, str);
+	len = (int)ft_strlen(str);
+	str = print_string_3(data, len, str);
+	ft_putstr(str);
+}

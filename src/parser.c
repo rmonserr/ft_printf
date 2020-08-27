@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "../includes/ft_printf.h"
 
 void		read_precision(t_params *data, char *format)
@@ -18,9 +19,10 @@ void		read_precision(t_params *data, char *format)
 	int		tmp_counter1;
 	char	*tmp;
 
-	if ((format[data->counter] == '.') && (format[data->counter + 1] >= '0'
-		|| format[data->counter + 1] <= '9'))
+	if ((format[data->counter] == '.') && (format[data->counter + 1] <= '9'
+		&& format[data->counter + 1] >= '0'))
 	{
+		//printf("%c\t%c\n", format[data->counter], format[data->counter + 1]);
 		data->counter++;
 		tmp_counter = 0;
 		tmp_counter1 = data->counter;
@@ -35,8 +37,17 @@ void		read_precision(t_params *data, char *format)
 		tmp_counter = 0;
 		while (data->counter != tmp_counter1)
 			tmp[tmp_counter++] = format[data->counter++];
+		//printf("%s\n", tmp);
+		//printf ("%ld\n" , data->precision);
 		data->precision = ft_atoi(tmp);
+		//printf ("%ld\n" , data->precision);
 		free(tmp);
+	}
+	if ((format[data->counter] == '.') && !(format[data->counter + 1] <= '9'
+		&& format[data->counter + 1] >= '0'))
+	{
+		data->counter++;
+		data->precision = 0;
 	}
 }
 
@@ -88,7 +99,9 @@ void		parcer(t_params *data, char *format)
 	read_width(data, format);
 	read_precision(data, format);
 	read_size(data, format);
+	//printf("%c\n", format[data->counter]);
 	data->type = format[data->counter];
+	//printf("%c\n", data->type);
 }
 
 void		read_specifier(t_params *data, char *format)

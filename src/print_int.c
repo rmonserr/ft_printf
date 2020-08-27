@@ -86,9 +86,8 @@ void		function_parsing(t_params *data)
 
 int			print_zero(t_params *data)
 {
-	if (data->precision < 0 && !data->width)
+	if (data->precision == 0 && !data->width)
 	{
-		ft_putstr(data->output_str);
 		data->printed = 0;
 		return (1);
 	}
@@ -126,6 +125,7 @@ void		print_integer(t_params *data)
 		data->output_str = ft_itoa(arg);
 		data->negative = 0;
 	}
+	//printf ("%d\n", arg);
 	data->printed = 1;
 	if ((int)ft_strlen(data->output_str) == 1 && data->output_str[0] == '0')
 		data->trigger = print_zero(data);

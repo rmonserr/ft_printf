@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include "../libft/includes/libft.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct	s_params
 {
@@ -64,5 +65,9 @@ int			ft_atoi(const char *str);
 size_t		ft_strlen(const char *s);
 void		ft_putstr(char const *s);
 int			ft_isspace(int c);
+void		ft_strdel(char **as);
+char		*ft_strdup(const char *s1);
+char		*ft_strjoin(char const *s1, char const *s2);
+void		ft_memdel(void **ap);
 
 # endif
