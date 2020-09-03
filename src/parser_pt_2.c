@@ -39,10 +39,12 @@ void		read_size(t_params *data, char *format)
 		data->counter++;
 	}
 	if (h_size == 2)
-		data->size = 4;
+		data->size = 5;
 	if (h_size == 1)
-		data->size = 3;
+		data->size = 4;
 	if (l_size == 2)
+		data->size = 3;
+	if (l_size == 1)
 		data->size = 2;
 	if (h_size == 1)
 		data->size = 1;
@@ -51,11 +53,13 @@ void		read_size(t_params *data, char *format)
 void		type_parsing(t_params *data)
 {
 	if (data->type == 'd' || data->type == 'i')
-		print_integer(data);
+		print_int(data);
 	if (data->type == 'c' || data->type == 'C')
 		print_char(data);
 	if (data->type == 's' || data->type == 'S')
 		print_string(data);
+	if (data->type == 'o' || data->type == 'O')
+		print_octal(data);
 	if (data->type == '%')
 		ft_putchar('%'); // сделать вывод с учетом ширины, точности и т.д.
 }

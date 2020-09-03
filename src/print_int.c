@@ -12,78 +12,6 @@
 
 #include "ft_printf.h"
 
-void		print_with_width_and_minus(t_params *data, int counter)
-{
-	if (data->negative == 1)
-	{
-		ft_putchar('-');
-		data->negative = 0;
-	}
-	if (data->printed == 1 && !data->precision)
-	{
-		ft_putstr(data->output_str);
-		data->printed = 0;
-	}
-	if (data->printed == 1 && data->precision)
-		print_with_precision(data);
-	while (counter-- > 0)
-	{
-		if (data->zero == 1)
-			ft_putchar('0');
-		else
-			ft_putchar(' ');
-	}
-}
-
-void		print_with_width(t_params *data, int counter)
-{
-	if (data->negative == 1 && data->zero)
-	{
-		ft_putchar('-');
-		data->negative = 0;
-	}
-	while (counter-- > 0)
-	{
-		if (data->zero == 1)
-			ft_putchar('0');
-		else
-			ft_putchar(' ');
-	}
-	if (data->negative == 1)
-	{
-		ft_putchar('-');
-		data->negative = 0;
-	}
-	if (data->printed == 1 && !data->precision)
-	{
-		ft_putstr(data->output_str);
-		data->printed = 0;
-	}
-}
-
-void		function_parsing(t_params *data)
-{
-	int		counter;
-
-	if (data->precision && data->width < data->precision)
-		print_with_precision(data);
-	else
-	{
-		if (data->precision &&
-			data->precision > (int)ft_strlen(data->output_str))
-			counter = data->width - data->precision;
-		else
-			counter = data->width - (int)ft_strlen(data->output_str);
-		if (data->negative)
-			counter -= 1;
-		if (data->minus_sign == 1)
-			print_with_width_and_minus(data, counter);
-		else
-			print_with_width(data, counter);
-		print_with_precision(data);
-	}
-}
-
 int			print_zero(t_params *data)
 {
 	if (data->precision == 0 && !data->width)
@@ -106,31 +34,135 @@ int			print_zero(t_params *data)
 	return (0);
 }
 
-void		print_integer(t_params *data)
+char		*put_minus(int len, char *str)
+{
+	char	*new;
+	int		counter;
+
+	counter = 1;
+	new = ft_strnew(len + 1);
+	new[0] = '-';
+	while (counter != len + 1)
+	{
+		new[counter] = str[counter - 1];
+		counter++;
+	}
+	return (new);
+}
+
+char		*move_minus(char *str)
+{
+	int		count;
+	char	*new;
+	char	tmp;
+
+	count = 0;
+	new = ft_strnew((int)ft_strlen(str));
+	new = ft_strdup(str);
+	while (new[count] != '-')
+		count++;
+	while (count > 0 && new[count])
+	{
+		if (new[count - 1] == ' ')
+			break ;
+		tmp = new[count - 1];
+		new[count - 1] = new[count];
+		new[count] = tmp;
+		count--;
+	}
+	return (new);
+}
+
+char		*print_int_3(t_params *data, int len, char *str)
+{
+	char	*new;
+	int		count;
+	char	c;
+
+	if (data->zero == 1)
+		c = '0';
+	else
+		c = ' ';
+	count = 0;
+	if (data->width >= 0 && data->width > len)
+	{
+		new = ft_strnew(data->width - len);
+		while (count < data->width - len)
+			new[count++] = c;
+		if (data->minus_sign == 1)
+			new = ft_strjoin(str, new);
+		else
+			new = ft_strjoin(new, str);
+		if (data->negative == 1 && data->zero == 1)
+			new = move_minus(new);
+		ft_strdel(&str);
+		return (new);
+	}
+	return (str);
+}
+
+char		*print_int_2(t_params *data, int len, char *str)
+{
+	char	*new;
+	int		count;
+
+	count = 0;
+	if (data->precision > 0 && data->precision >= len)
+	{
+		if (data->negative == 1)
+			new = ft_strnew(data->precision - len + 1);
+		else
+			new = ft_strnew(data->precision - len);
+		if (data->negative == 1)
+		{
+			count = 1;
+			new[0] = '-';
+			while (count < data->precision - len + 1)
+				new[count++] = '0';
+			data->negative = 0;
+		}
+		else
+			while (count < data->precision - len)
+				new[count++] = '0';
+		new = ft_strjoin(new, str);
+		ft_strdel(&str);
+		return (new);
+	}
+	if ((data->precision <= 0 || data->precision <= len)
+		&& (data->negative == 1))
+	{
+		new = put_minus(len, str);
+		ft_strdel(&str);
+		return (new);
+	}
+	return (str);
+}
+
+void		print_int(t_params *data)
 {
 	int		arg;
+	int		len;
+	char	*str;
 
 	arg = va_arg(data->args, int);
-	// здесь будет проверка на size - меняем size и переходим далее
-	// прикрутить флаги ' '
 	if (data->zero == 1 && data->precision > 0)
 		data->zero = 0;
 	if (arg < 0)
 	{
-		data->output_str = ft_itoa(arg * (-1));
+		str = ft_itoa(arg * (-1));
 		data->negative = 1;
 	}
 	else
 	{
-		data->output_str = ft_itoa(arg);
+		str = ft_itoa(arg);
 		data->negative = 0;
 	}
-	//printf ("%d\n", arg);
-	data->printed = 1;
-	if ((int)ft_strlen(data->output_str) == 1 && data->output_str[0] == '0')
-		data->trigger = print_zero(data);
-	if (data->trigger == 1)
-		return ;
-	else
-		function_parsing(data);
+	if ((int)ft_strlen(str) == 1 && str[0] == '0')
+		if ((data->trigger = print_zero(data)) == 1)
+			return ;
+	len = (int)ft_strlen(str);
+	str = print_int_2(data, len, str);
+	len = (int)ft_strlen(str);
+	str = print_int_3(data, len, str);
+	ft_putstr(str);
 }

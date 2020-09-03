@@ -42,21 +42,31 @@ void		sort_flags(t_params *data);
 void		type_parsing(t_params *data);
 
 //int
-void		print_integer(t_params *data);
-void		print_with_width(t_params *data, int counter);
-void		print_with_width_and_minus(t_params *data, int counter);
+char		*move_minus(char *str);
 int			print_zero(t_params *data);
-int			prec_check(t_params *data);
-void		print_with_precision(t_params *data);
-void		zero_fill(t_params *data);
-void		function_parsing(t_params *data);
+char		*put_minus(int len, char *str);
+char		*print_int_3(t_params *data, int len, char *str);
+char		*print_int_2(t_params *data, int len, char *str);
+void		print_int(t_params *data);
 
 //char
 void		print_char(t_params *data);
 void		print_char_with_width(t_params *data);
 void		print_string(t_params *data);
 
-char		*ft_itoa(int n);
+//str
+void		print_string(t_params *data);
+char		*print_string_2(t_params *data, long int len, char *str);
+char		*print_string_3(t_params *data, int len, char *str);
+char		*check_null(t_params *data, char *str);
+
+//octal
+void		print_octal(t_params *data);
+char		*octal_calculation(long long int number, t_params *data);
+char		*print_octal_2(t_params *data, char *str, int len);
+char		*print_octal_3(t_params *data, char *str, int len);
+
+char		*ft_itoa(long long int n);
 void		ft_putchar(char c);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strnew(size_t size);
@@ -69,5 +79,9 @@ void		ft_strdel(char **as);
 char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 void		ft_memdel(void **ap);
+char		*ft_revstring(char *str);
+
+
+char		*move_minus(char *str);
 
 # endif
