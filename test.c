@@ -3,7 +3,8 @@
 
 int		main(void)
 {
-	int	x = 430;
+
+	char *str;
 
 	//printf ("printf - .1 %.1o\n", 439);
 	//printf ("printf - .2 %.2o\n", 439);
@@ -23,12 +24,12 @@ int		main(void)
 	//printf ("printf - %o\n", 1);
 	//ft_printf ("ft_printf %10.6o\n", 123);
 	//printf ("printf %10.6o\n", 123);
-	ft_printf ("%07i", -54);
+	ft_printf ("ft - %*.*s\n", -10, -4, "Helo");
+	printf ("pt - %*.*s\n", -10, -4, "Helo");
 	//octal_calculation(8375);
 	//ft_putchar('\n');
 	//printf ("%.3i\n",-23646);
-	//char *str = "    000-23";
-	//str = print_minus(str);
+	//char *str = "    00023\n";
 	//ft_putstr(str);
 }
 

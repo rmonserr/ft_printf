@@ -2,9 +2,10 @@
 # define FT_PRINTF_H
 
 #include <stdarg.h>
-#include "../libft/includes/libft.h"
+//#include "../libft/includes/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 
 typedef struct	s_params
 {
@@ -62,9 +63,19 @@ char		*check_null(t_params *data, char *str);
 
 //octal
 void		print_octal(t_params *data);
-char		*octal_calculation(long long int number, t_params *data);
+char		*octal_calculation(unsigned long long int number, t_params *data);
 char		*print_octal_2(t_params *data, char *str, int len);
 char		*print_octal_3(t_params *data, char *str, int len);
+
+//unsigned
+void		print_unsigned(t_params *data);
+
+//hexadecimal
+void		print_hexadecimal(t_params *data);
+char		*hex_calculation(unsigned long long int number, t_params *data);
+
+//pointer
+void		print_pointer(t_params *data);
 
 char		*ft_itoa(long long int n);
 void		ft_putchar(char c);
@@ -82,6 +93,5 @@ void		ft_memdel(void **ap);
 char		*ft_revstring(char *str);
 
 
-char		*move_minus(char *str);
 
 # endif

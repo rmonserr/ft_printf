@@ -12,40 +12,23 @@
 
 #include "ft_printf.h"
 
-char		*move_minus(char *str)
+void		print_pointer(t_params *data)
 {
-	int		count;
-	char	*new;
-	char	tmp;
+	unsigned long long int	ptr;
+	char					*output;
+	long int				len;
 
-	count = 0;
-	new = ft_strnew((int)ft_strlen(str));
-	new = ft_strdup(str);
-	while (new[count] != '-')
-		count++;
-	while (count > 0 && new[count])
+	data->hash = 1;
+	ptr = (unsigned long long int)va_arg(data->args, void *);
+	if (ptr == 0)
 	{
-		if (new[count - 1] == ' ')
-			break ;
-		tmp = new[count - 1];
-		new[count - 1] = new[count];
-		new[count] = tmp;
-		count--;
+		data->hash = 0;
+		output = "(nil)";
+		data->width = 0;
+		data->precision = 0;
 	}
-	return (new);
-}
-
-void		print_unsigned(t_params *data)
-{
-	char			*output;
-	int				len;
-	__uintmax_t 	arg;
-
-	arg = va_arg(data->args, unsigned long int);
-	if (arg == 0 && data->precision == 0)
-		output = ft_strnew(0);
 	else
-		output = ft_itoa(arg);
+		output = hex_calculation(ptr, data);
 	len = (long int)ft_strlen(output);
 	output = print_octal_2(data, output, len);
 	len = (long int)ft_strlen(output);

@@ -50,29 +50,6 @@ char		*put_minus(int len, char *str)
 	return (new);
 }
 
-char		*move_minus(char *str)
-{
-	int		count;
-	char	*new;
-	char	tmp;
-
-	count = 0;
-	new = ft_strnew((int)ft_strlen(str));
-	new = ft_strdup(str);
-	while (new[count] != '-')
-		count++;
-	while (count > 0 && new[count])
-	{
-		if (new[count - 1] == ' ')
-			break ;
-		tmp = new[count - 1];
-		new[count - 1] = new[count];
-		new[count] = tmp;
-		count--;
-	}
-	return (new);
-}
-
 char		*print_int_3(t_params *data, int len, char *str)
 {
 	char	*new;
@@ -109,21 +86,11 @@ char		*print_int_2(t_params *data, int len, char *str)
 	count = 0;
 	if (data->precision > 0 && data->precision >= len)
 	{
+		new = ft_strnew(data->precision - len);
+		while (count < data->precision - len)
+			new[count++] = '0';
 		if (data->negative == 1)
-			new = ft_strnew(data->precision - len + 1);
-		else
-			new = ft_strnew(data->precision - len);
-		if (data->negative == 1)
-		{
-			count = 1;
-			new[0] = '-';
-			while (count < data->precision - len + 1)
-				new[count++] = '0';
-			data->negative = 0;
-		}
-		else
-			while (count < data->precision - len)
-				new[count++] = '0';
+			new = put_minus((int)ft_strlen(new), new);
 		new = ft_strjoin(new, str);
 		ft_strdel(&str);
 		return (new);
@@ -153,10 +120,7 @@ void		print_int(t_params *data)
 		data->negative = 1;
 	}
 	else
-	{
 		str = ft_itoa(arg);
-		data->negative = 0;
-	}
 	if ((int)ft_strlen(str) == 1 && str[0] == '0')
 		if ((data->trigger = print_zero(data)) == 1)
 			return ;

@@ -47,7 +47,15 @@ void		read_precision(t_params *data, char *format)
 		&& format[data->counter + 1] >= '0'))
 	{
 		data->counter++;
-		data->precision = 0;
+		if (format[data->counter] == '*')
+		{
+			data->precision = va_arg(data->args, int);
+			if (data->precision <= 0 && data->precision != -5)
+				data->precision = -5;
+			data->counter++;
+		}
+		else
+			data->precision = 0;
 	}
 }
 
@@ -59,6 +67,17 @@ void		read_width(t_params *data, char *format)
 
 	tmp_counter = 0;
 	tmp_counter1 = data->counter;
+	if (format[data->counter] == '*')
+	{
+		data->width = va_arg(data->args, int);
+		if (data->width < 0)
+		{
+			data->minus_sign = 1;
+			data->width *= -1;
+		}
+		data->counter++;
+		return ;
+	}
 	while (format[data->counter] >= '0' && format[data->counter] <= '9')
 	{
 		data->counter++;
@@ -122,3 +141,4 @@ void		read_specifier(t_params *data, char *format)
 }
 
 // куда-то нужно прикрутить счетчик вывода
+// разобраться с format
