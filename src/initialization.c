@@ -26,7 +26,6 @@ void		clean_struct(t_params *data)
 	data->negative = 0;
 	data->printed = 0;
 	data->trigger = 0;
-	data->format = '\0';
 }
 
 t_params	*init(t_params *data, char *format)

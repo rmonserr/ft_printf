@@ -17,7 +17,7 @@ SRCS = ft_printf.c initialization.c parser.c parser_pt_2.c print_int.c \
 print_int_pt_2.c print_char.c print_string.c ft_itoa.c ft_memset.c ft_putchar.c \
 ft_strchr.c ft_strnew.c ft_atoi.c ft_strlen.c ft_putstr.c ft_isspace.c ft_strdel.c \
 ft_strdup.c ft_strjoin.c ft_memdel.c print_octal.c ft_revstring.c print_hexadecimal.c \
-print_pointer.c
+print_pointer.c print_f.c
 
 OBJ_PATH = obj
 OBJS = $(SRCS:.c=.o)
@@ -34,7 +34,7 @@ FT = ./libft/
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	#@make -C $(FT)
+	@make -C $(FT)
 	@ar rcs $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	@echo "Compilation of libftprintf:	\033[1;32mOK\033[m"
@@ -45,13 +45,13 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@# -l $(FT)
 
 clean:
-	#@make clean -C $(FT)
+	@make clean -C $(FT)
 	@rm -f $(OBJ)
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 	@echo "libftprintf: \033[1;32mRemoving Objs\033[m"
 
 fclean: clean
-	#@make fclean -C $(FT)
+	@make fclean -C $(FT)
 	@rm -f $(NAME)
 	@echo "Libftprintf: \033[1;32mRemoving Libftprintf\033[m"
 

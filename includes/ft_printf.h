@@ -33,12 +33,12 @@ typedef struct	s_params
 int			ft_printf(char *format, ...);
 t_params	*init(t_params *data, char *format);
 void		clean_struct(t_params *data);
-void		parcer(t_params *data, char *format);
-void		read_specifier(t_params *data, char *format);
-void		read_flag(t_params *data, char *format);
-void		read_width(t_params *data, char *format);
-void		read_precision(t_params *data, char *format);
-void		read_size(t_params *data, char *format);
+void		parcer(t_params *data);
+void		read_specifier(t_params *data);
+void		read_flag(t_params *data);
+void		read_width(t_params *data);
+void		read_precision(t_params *data);
+void		read_size(t_params *data);
 void		sort_flags(t_params *data);
 void		type_parsing(t_params *data);
 
@@ -76,6 +76,11 @@ char		*hex_calculation(unsigned long long int number, t_params *data);
 
 //pointer
 void		print_pointer(t_params *data);
+
+//floats
+void		print_f(t_params *data);
+char		*ft_prec(t_params *data, char *output);
+char		*ft_make_output(long double nbr, int arg, t_params *data);
 
 char		*ft_itoa(long long int n);
 void		ft_putchar(char c);

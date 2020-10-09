@@ -25,7 +25,7 @@ int		ft_printf(char *format, ...)
 		va_start(data->args, format);
 		if (format[0] == '%' && format[1] == '\0')
 			return (0);
-		read_specifier(data, format);
+		read_specifier(data);
 		va_end(data->args);
 	}
 	else

@@ -20,21 +20,21 @@ void		sort_flags(t_params *data)
 		data->space = 0;
 }
 
-void		read_size(t_params *data, char *format)
+void		read_size(t_params *data)
 {
 	size_t		h_size;
 	size_t		l_size;
 
 	h_size = 0;
 	l_size = 0;
-	while (format[data->counter] == 'h' || format[data->counter] == 'l' ||
-		format[data->counter] == 'L')
+	while (data->format[data->counter] == 'h' || data->format[data->counter] == 'l' ||
+		data->format[data->counter] == 'L')
 	{
-		if (format[data->counter] == 'h')
+		if (data->format[data->counter] == 'h')
 			h_size++;
-		if (format[data->counter] == 'l')
+		if (data->format[data->counter] == 'l')
 			l_size++;
-		if (format[data->counter] == 'L')
+		if (data->format[data->counter] == 'L')
 			data->size = 5;
 		data->counter++;
 	}
@@ -64,6 +64,9 @@ void		type_parsing(t_params *data)
 		print_hexadecimal(data);
 	if (data->type == 'p')
 		print_pointer(data);
+	if (data->type == 'f')
+		print_f(data);
+		//printf("%s\n", "HALo");
 	if (data->type == '%')
 		ft_putchar('%'); // сделать вывод с учетом ширины, точности и т.д.
 }
