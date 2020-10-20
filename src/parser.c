@@ -19,39 +19,26 @@ void		read_precision(t_params *data)
 	int		tmp_counter1;
 	char	*tmp;
 
-	if ((data->format[data->counter] == '.') && (data->format[data->counter + 1] <= '9'
+	if ((data->format[data->counter] == '.') &&
+		(data->format[data->counter + 1] <= '9'
 		&& data->format[data->counter + 1] >= '0'))
 	{
 		data->counter++;
 		tmp_counter = 0;
-		tmp_counter1 = data->counter;
-		while (data->format[data->counter] >= '0' && data->format[data->counter] <= '9')
+		while (data->format[data->counter] >= '0' &&
+			data->format[data->counter] <= '9')
 		{
 			data->counter++;
 			tmp_counter++;
 		}
 		tmp = ft_strnew(tmp_counter);
-		tmp_counter1 += tmp_counter;
+		tmp_counter1 = data->counter;
 		data->counter -= tmp_counter;
 		tmp_counter = 0;
 		while (data->counter != tmp_counter1)
 			tmp[tmp_counter++] = data->format[data->counter++];
 		data->precision = ft_atoi(tmp);
 		free(tmp);
-	}
-	if ((data->format[data->counter] == '.') && !(data->format[data->counter + 1] <= '9'
-		&& data->format[data->counter + 1] >= '0'))
-	{
-		data->counter++;
-		if (data->format[data->counter] == '*')
-		{
-			data->precision = va_arg(data->args, int);
-			if (data->precision <= 0 && data->precision != -5)
-				data->precision = -5;
-			data->counter++;
-		}
-		else
-			data->precision = 0;
 	}
 }
 
@@ -73,7 +60,8 @@ void		read_width(t_params *data)
 		data->counter++;
 		return ;
 	}
-	while (data->format[data->counter] >= '0' && data->format[data->counter] <= '9')
+	while (data->format[data->counter] >= '0' &&
+		data->format[data->counter] <= '9')
 	{
 		tmp[0] = data->format[data->counter++];
 		new = ft_strjoin(new, tmp);
@@ -104,9 +92,10 @@ void		read_flag(t_params *data)
 void		parcer(t_params *data)
 {
 	read_flag(data);
-	sort_flags(data); // флаги с учетом приорететов
+	sort_flags(data);
 	read_width(data);
 	read_precision(data);
+	read_precision_2(data);
 	read_size(data);
 	data->type = data->format[data->counter];
 }
@@ -119,15 +108,19 @@ void		read_specifier(t_params *data)
 		{
 			data->counter++;
 			parcer(data);
-			if (data->space == 1)
+			if ((check_space(data) == 1))
+			{
 				ft_putchar(' ');
+				data->total += 1;
+			}
 			type_parsing(data);
 			clean_struct(data);
 		}
 		else
+		{
 			ft_putchar(data->format[data->counter]);
+			data->total += 1;
+		}
 		data->counter++;
 	}
 }
-
-// куда-то нужно прикрутить счетчик вывода

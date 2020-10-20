@@ -12,6 +12,37 @@
 
 #include "ft_printf.h"
 
+int			check_space(t_params *data)
+{
+	if (data->type == 'o' || data->type == 'O' || data->type == 'X'
+		|| data->type == 'x' || data->type == 's' || data->type == 'S' || data->type == 'f' || data->type == 'F')
+	{
+		data->space = 0;
+		return (0);
+	}
+	else
+		return (1);
+}
+
+void		read_precision_2(t_params *data)
+{
+	if ((data->format[data->counter] == '.') &&
+		!(data->format[data->counter + 1] <= '9'
+		&& data->format[data->counter + 1] >= '0'))
+	{
+		data->counter++;
+		if (data->format[data->counter] == '*')
+		{
+			data->precision = va_arg(data->args, int);
+			if (data->precision <= 0 && data->precision != -5)
+				data->precision = -5;
+			data->counter++;
+		}
+		else
+			data->precision = 0;
+	}
+}
+
 void		sort_flags(t_params *data)
 {
 	if (data->minus_sign == 1 && data->zero == 1)
@@ -27,7 +58,8 @@ void		read_size(t_params *data)
 
 	h_size = 0;
 	l_size = 0;
-	while (data->format[data->counter] == 'h' || data->format[data->counter] == 'l' ||
+	while (data->format[data->counter] == 'h' ||
+		data->format[data->counter] == 'l' ||
 		data->format[data->counter] == 'L')
 	{
 		if (data->format[data->counter] == 'h')
@@ -66,7 +98,6 @@ void		type_parsing(t_params *data)
 		print_pointer(data);
 	if (data->type == 'f')
 		print_f(data);
-		//printf("%s\n", "HALo");
 	if (data->type == '%')
 		ft_putchar('%'); // сделать вывод с учетом ширины, точности и т.д.
 }

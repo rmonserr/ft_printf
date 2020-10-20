@@ -39,7 +39,7 @@ void		print_unsigned(t_params *data)
 {
 	char			*output;
 	int				len;
-	__uintmax_t 	arg;
+	__uintmax_t		arg;
 
 	arg = va_arg(data->args, unsigned long int);
 	if (arg == 0 && data->precision == 0)

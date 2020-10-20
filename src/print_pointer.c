@@ -34,4 +34,6 @@ void		print_pointer(t_params *data)
 	len = (long int)ft_strlen(output);
 	output = print_octal_3(data, output, len);
 	ft_putstr(output);
+	data->total += (int)ft_strlen(output);
+	ft_strdel(&output);
 }

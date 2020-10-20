@@ -41,6 +41,8 @@ void		read_precision(t_params *data);
 void		read_size(t_params *data);
 void		sort_flags(t_params *data);
 void		type_parsing(t_params *data);
+void		read_precision_2(t_params *data);
+int			check_space(t_params *data);
 
 //int
 char		*move_minus(char *str);
@@ -80,7 +82,12 @@ void		print_pointer(t_params *data);
 //floats
 void		print_f(t_params *data);
 char		*ft_prec(t_params *data, char *output);
-char		*ft_make_output(long double nbr, int arg, t_params *data);
+char	*ft_make_output(long double nbr, int arg, t_params *data, int count, int flag);
+char		*use_zero(t_params *data, char *output);
+char		*use_flag(t_params *data, char *output);
+char		*copy(char *output, char *str);
+char		*rounding(char *output);
+char		*add_one(char *str);
 
 char		*ft_itoa(long long int n);
 void		ft_putchar(char c);

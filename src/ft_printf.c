@@ -15,8 +15,10 @@
 
 int		ft_printf(char *format, ...)
 {
-	t_params *data;
+	t_params	*data;
+	int			res;
 
+	res = 0;
 	if (format)
 	{
 		if (!(data = (t_params *)malloc(sizeof(t_params))))
@@ -29,6 +31,8 @@ int		ft_printf(char *format, ...)
 		va_end(data->args);
 	}
 	else
-		return (-1);
-	return (data->total);
+		exit (-1);
+	res = data->total;
+	free (data);
+	return (res);
 }

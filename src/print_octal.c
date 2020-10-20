@@ -14,7 +14,7 @@
 
 char		*octal_calculation(unsigned long long int number, t_params *data)
 {
-	char 				*res;
+	char				*res;
 	__uintmax_t			tmp;
 	char				*temp;
 
@@ -24,6 +24,7 @@ char		*octal_calculation(unsigned long long int number, t_params *data)
 		tmp = number / 8;
 		temp = ft_itoa(number % 8);
 		res = ft_strjoin(res, temp);
+		ft_strdel(&temp);
 		number = tmp;
 	}
 	if (number % 8 != 0)
@@ -33,13 +34,14 @@ char		*octal_calculation(unsigned long long int number, t_params *data)
 	}
 	if (data->hash == 1)
 		res = ft_strjoin(res, "0");
+	ft_strdel(&temp);
 	res = ft_revstring(res);
 	return (res);
 }
 
 char		*print_octal_3(t_params *data, char *str, int len)
 {
-	char 	*new;
+	char	*new;
 	int		count;
 	char	c;
 
@@ -78,7 +80,7 @@ char		*print_octal_2(t_params *data, char *str, int len)
 		ft_strdel(&str);
 		return (new);
 	}
-	return(str);
+	return (str);
 }
 
 void		print_octal(t_params *data)
@@ -97,4 +99,6 @@ void		print_octal(t_params *data)
 	len = (long int)ft_strlen(output);
 	output = print_octal_3(data, output, len);
 	ft_putstr(output);
+	data->total += (int)ft_strlen(output);
+	ft_strdel(&output);
 }

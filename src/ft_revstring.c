@@ -20,7 +20,7 @@ char	*ft_revstring(char *str)
 	int		i;
 	int		j;
 
-	revstr = (char *)malloc(sizeof(char) * ft_strlen(str));
+	revstr = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (revstr == NULL)
 		return (NULL);
 	i = 0;
@@ -28,5 +28,6 @@ char	*ft_revstring(char *str)
 	while (j)
 		revstr[i++] = str[--j];
 	revstr[i] = '\0';
+	ft_strdel(&str);
 	return (revstr);
 }

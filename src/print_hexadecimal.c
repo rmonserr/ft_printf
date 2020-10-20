@@ -12,10 +12,23 @@
 
 #include "ft_printf.h"
 
-char*		if_letter(long long int num, char *res, t_params *data)
+char		*check_hash(t_params *data, char *res)
 {
-	char *a_z;
+	if (data->hash == 1)
+	{
+		if (data->type == 'x' || data->type == 'p')
+			res = ft_strjoin(res, "x0");
+		else
+			res = ft_strjoin(res, "X0");
+	}
+	return (res);
+}
+
+char		*if_letter(long long int num, char *res, t_params *data)
+{
+	char	*a_z;
 	char	*new;
+	char	*str;
 
 	new = ft_strnew(1);
 	a_z = "abcdefABCDEF";
@@ -23,13 +36,31 @@ char*		if_letter(long long int num, char *res, t_params *data)
 		new[0] = a_z[num - 10];
 	else
 		new[0] = a_z[num - 4];
-	res = ft_strjoin(res, new);
-	return(res);
+	str = ft_strjoin(res, new);
+	ft_strdel(&new);
+	ft_strdel(&res);
+	return (str);
+}
+
+char		*check_remainder(unsigned long long int number,
+	char *res, char *temp, t_params *data)
+{
+	if (number % 16 != 0)
+	{
+		if (number % 16 >= 10 && number % 16 <= 15)
+			res = if_letter((number % 16), res, data);
+		else
+		{
+			temp = ft_itoa(number % 16);
+			res = ft_strjoin(res, temp);
+		}
+	}
+	return (res);
 }
 
 char		*hex_calculation(unsigned long long int number, t_params *data)
 {
-	char 				*res;
+	char				*res;
 	__uintmax_t			tmp;
 	char				*temp;
 
@@ -43,27 +74,14 @@ char		*hex_calculation(unsigned long long int number, t_params *data)
 		{
 			temp = ft_itoa(number % 16);
 			res = ft_strjoin(res, temp);
+			ft_strdel(&temp);
 		}
-			number = tmp;
+		number = tmp;
 	}
-	if (number % 16 != 0)
-	{
-		if (number % 16 >= 10 && number % 16 <= 15)
-			res = if_letter((number % 16), res, data);
-		else
-		{
-			temp = ft_itoa(number % 16);
-			res = ft_strjoin(res, temp);
-		}
-	}
-	if (data->hash == 1)
-	{
-		if (data->type == 'x' || data->type == 'p')
-			res = ft_strjoin(res, "x0");
-		else
-			res = ft_strjoin(res, "X0");
-	}
+	res = check_remainder(number, res, temp, data);
+	res = check_hash(data, res);
 	res = ft_revstring(res);
+	ft_strdel(&temp);
 	return (res);
 }
 
@@ -83,4 +101,6 @@ void		print_hexadecimal(t_params *data)
 	len = (long int)ft_strlen(output);
 	output = print_octal_3(data, output, len);
 	ft_putstr(output);
+	data->total += (int)ft_strlen(output);
+	ft_strdel(&output);
 }

@@ -129,4 +129,6 @@ void		print_int(t_params *data)
 	len = (int)ft_strlen(str);
 	str = print_int_3(data, len, str);
 	ft_putstr(str);
+	data->total += (int)ft_strlen(str);
+	ft_strdel(&str);
 }

@@ -56,7 +56,7 @@ char	*print_string_3(t_params *data, int len, char *str)
 
 char	*print_string_2(t_params *data, long int len, char *str)
 {
-	char 	*new;
+	char	*new;
 	int		count;
 
 	count = 0;
@@ -92,4 +92,6 @@ void	print_string(t_params *data)
 	len = (int)ft_strlen(str);
 	str = print_string_3(data, len, str);
 	ft_putstr(str);
+	data->total += (int)ft_strlen(str);
+	ft_strdel(&str);
 }
