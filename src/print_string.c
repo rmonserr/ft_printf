@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 #include <stdio.h>
 
 char	*check_null(t_params *data, char *str)
@@ -56,7 +56,7 @@ char	*print_string_3(t_params *data, int len, char *str)
 
 char	*print_string_2(t_params *data, long int len, char *str)
 {
-	char 	*new;
+	char	*new;
 	int		count;
 
 	count = 0;

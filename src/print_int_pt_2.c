@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 char		*move_minus(char *str)
 {
@@ -39,7 +39,7 @@ void		print_unsigned(t_params *data)
 {
 	char			*output;
 	int				len;
-	__uintmax_t 	arg;
+	uintmax_t		arg;
 
 	arg = va_arg(data->args, unsigned long int);
 	if (arg == 0 && data->precision == 0)

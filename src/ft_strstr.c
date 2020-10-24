@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmonserr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/19 15:58:37 by rmonserr          #+#    #+#             */
-/*   Updated: 2019/09/19 15:58:38 by rmonserr         ###   ########.fr       */
+/*   Created: 2019/09/13 14:52:37 by rmonserr          #+#    #+#             */
+/*   Updated: 2019/09/13 14:53:05 by rmonserr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
-#include <stdlib.h>
+#include <string.h>
 
-char			*ft_itoa(long long int n)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	int					size;
-	long long int		res;
-	char				*str;
-	int					flag;
+	int i;
+	int j;
 
-	flag = (n < 0) ? (-1) : 1;
-	size = (n < 0) ? 3 : 2;
-	res = n;
-	while (res /= 10)
-		size++;
-	if ((str = (char *)malloc(sizeof(char) * size)) == NULL)
-		return (NULL);
-	str[--size] = '\0';
-	while (size > 0)
+	i = 0;
+	j = 0;
+	if (!*needle)
+		return ((char *)haystack);
+	while (haystack[j])
 	{
-		str[--size] = n % 10 * flag + '0';
-		n /= 10;
+		i = 0;
+		while (haystack[j + i] == needle[i] && haystack[j + i] && needle[i])
+			i++;
+		if (!needle[i])
+			return ((char *)&haystack[j]);
+		j++;
 	}
-	if (flag < 0)
-		str[0] = '-';
-	return (str);
+	return (NULL);
 }

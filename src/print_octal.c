@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 char		*octal_calculation(unsigned long long int number, t_params *data)
 {
-	char 				*res;
-	__uintmax_t			tmp;
+	char				*res;
+	uintmax_t			tmp;
 	char				*temp;
 
 	res = ft_strnew(0);
@@ -39,7 +39,7 @@ char		*octal_calculation(unsigned long long int number, t_params *data)
 
 char		*print_octal_3(t_params *data, char *str, int len)
 {
-	char 	*new;
+	char	*new;
 	int		count;
 	char	c;
 
@@ -78,7 +78,7 @@ char		*print_octal_2(t_params *data, char *str, int len)
 		ft_strdel(&str);
 		return (new);
 	}
-	return(str);
+	return (str);
 }
 
 void		print_octal(t_params *data)
